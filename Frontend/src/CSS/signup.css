@@ -1,0 +1,115 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: system-ui, "Segoe UI", Roboto, sans-serif;
+}
+
+body {
+  background: #0a0f2c;
+}
+
+/* Full page */
+.signupsignup-wrapper {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #0a0f2c;
+  padding: 20px;
+}
+
+/* Signup card */
+.signupsignup-container {
+  width: clamp(340px, 90vw, 500px);
+  padding: clamp(24px, 4vw, 40px);
+  border-radius: 20px;
+  background: linear-gradient(135deg, #1c2b5a, #0f1a3d);
+  box-shadow:
+    rgba(0, 0, 0, 0.5) 0 12px 30px,
+    rgba(0, 0, 0, 0.3) 0 4px 12px;
+}
+
+/* Title */
+.signupsignup-container h2 {
+  color: white;
+  text-align: center;
+  margin-bottom: 28px;
+  font-size: clamp(24px, 3vw, 36px);
+  font-weight: 700;
+}
+
+/* Form groups */
+.inputsignup-group {
+  margin-bottom: 18px;
+}
+
+/* Labels */
+.inputsignup-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* Inputs */
+.inputsignup-group input {
+  width: 100%;
+  padding: 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.08);
+  color: white;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.inputsignup-group input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.inputsignup-group input:focus {
+  border-color: #7fb8ff;
+  box-shadow: 0 0 0 3px rgba(127, 184, 255, 0.15);
+}
+
+/* Button */
+.signupsignup-button {
+  width: 100%;
+  margin-top: 10px;
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  background: white;
+  color: #0f1a3d;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.signupsignup-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(255, 255, 255, 0.15);
+}
+
+.signupsignup-button:active {
+  transform: translateY(0);
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .signupsignup-container {
+    width: 100%;
+    padding: 24px;
+  }
+
+  .signupsignup-container h2 {
+    font-size: 28px;
+  }
+
+  .inputsignup-group input {
+    padding: 12px;
+  }
+}

@@ -1,0 +1,163 @@
+/* =========================
+   OTP PAGE - SPACE BLUE THEME
+========================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: system-ui, "Segoe UI", Roboto, sans-serif;
+}
+
+body {
+  background: #0a0f2c;
+}
+
+/* Full Screen Layout */
+.otp-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #0a0f2c;
+  padding: 20px;
+}
+
+/* OTP Card */
+.otp-card {
+  width: clamp(340px, 90vw, 500px);
+  padding: clamp(24px, 4vw, 40px);
+
+  background: linear-gradient(
+    135deg,
+    #1c2b5a,
+    #0f1a3d
+  );
+
+  border-radius: 20px;
+
+  box-shadow:
+    rgba(0, 0, 0, 0.5) 0 12px 30px,
+    rgba(0, 0, 0, 0.3) 0 4px 12px;
+
+  text-align: center;
+}
+
+/* Heading */
+.otp-title {
+  color: white;
+  font-size: clamp(28px, 4vw, 40px);
+  margin-bottom: 12px;
+  font-weight: 700;
+}
+
+/* Subtitle */
+.otp-subtitle {
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 15px;
+  line-height: 1.5;
+  margin-bottom: 24px;
+}
+
+/* Inputs */
+.otp-input {
+  width: 100%;
+  padding: 14px;
+
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+
+  background: rgba(255, 255, 255, 0.08);
+
+  color: white;
+  font-size: 16px;
+
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.otp-input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.otp-input:focus {
+  border-color: #7fb8ff;
+  box-shadow: 0 0 0 3px rgba(127, 184, 255, 0.15);
+}
+
+/* Buttons */
+.verify-btn {
+  width: 100%;
+  margin-top: 18px;
+  padding: 14px;
+
+  border: none;
+  border-radius: 12px;
+
+  background: white;
+  color: #0f1a3d;
+
+  font-size: 16px;
+  font-weight: 600;
+
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.verify-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(255, 255, 255, 0.15);
+}
+
+.verify-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Resend Section */
+.resend-text {
+  margin-top: 18px;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 14px;
+}
+
+.resend-btn {
+  background: transparent;
+  border: none;
+
+  color: #7fb8ff;
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.resend-btn:hover {
+  text-decoration: underline;
+}
+
+/* Error Message */
+.otp-card p[style] {
+  margin-top: 14px !important;
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .otp-card {
+    width: 100%;
+    padding: 24px;
+  }
+
+  .otp-title {
+    font-size: 30px;
+  }
+
+  .otp-input {
+    padding: 12px;
+  }
+
+  .verify-btn {
+    padding: 12px;
+  }
+}
