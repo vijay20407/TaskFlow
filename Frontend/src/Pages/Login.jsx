@@ -12,10 +12,11 @@ export default function Login(){
         const email = formData.get("email")
         const password = formData.get("password")
         try{
-            const response = await axios.post('http://localhost:8080/api/login',{
-                email,
-                password,
-
+            const response = await axios.post('http://localhost:8080/api/login',{},{
+                auth:{
+                    username: email, // Put the email state here
+                    password: password,
+                }
             })
             console.log(response.data)
         if(error==""){
@@ -26,7 +27,9 @@ export default function Login(){
             
 
         }catch(e){
-            console.log(e)
+            console.log("Status:", e.response?.status);
+    console.log("Data:", e.response?.data);
+    console.log("Headers:", e.response?.headers);
         }
     }
     const forgotPassword = async()=>{

@@ -3,14 +3,13 @@ package com.TaskFlow.Controller;
 import com.TaskFlow.Entity.Users;
 import com.TaskFlow.Entity.UsersLogin;
 import com.TaskFlow.Repo.UserRepository;
-import com.TaskFlow.Services.LoginService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.annotation.RequestScope;
 import org.springframework.web.context.annotation.SessionScope;
 
 import java.util.Optional;
@@ -21,16 +20,14 @@ import java.util.Optional;
 public class LoginController
 {
     @Autowired
-    private LoginService loginService;
-    @Autowired
     private UserRepository userRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
     @PostMapping
-    @SessionScope
-    public ResponseEntity<String> checkLogin(@RequestBody UsersLogin usersLogin) {
-        return loginService.verifyLogin(usersLogin.getEmail(), usersLogin.getPassword());
+    public ResponseEntity<String> checkLogin(Authentication authentication) {
+        System.out.println(authentication.getName());
+        return ResponseEntity.status(HttpStatus.OK).header("message","Login Successful").body(authentication.getName());
     }
     @PatchMapping("/reset-password")
     @Transactional
