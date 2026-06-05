@@ -221,3 +221,198 @@ body {
     gap: 8px;
   }
 }
+/* =========================
+   COURSES SECTION
+========================= */
+
+.courses-panel {
+  margin-top: 30px;
+
+  background: linear-gradient(
+    135deg,
+    rgba(28, 43, 90, 0.45),
+    rgba(15, 26, 61, 0.45)
+  );
+
+  border-radius: 20px;
+
+  padding: 24px;
+
+  box-shadow:
+    rgba(0, 0, 0, 0.3) 0 8px 24px;
+}
+
+.courses-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 24px;
+}
+
+.courses-header h2 {
+  color: white;
+  margin-bottom: 4px;
+}
+
+.courses-header p {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 14px;
+}
+
+.add-course-btn {
+  background: white;
+  color: #0f1a3d;
+
+  border: none;
+  border-radius: 12px;
+
+  padding: 12px 18px;
+
+  font-weight: 600;
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.add-course-btn:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 8px 20px
+    rgba(255, 255, 255, 0.15);
+}
+
+.courseSection {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+/* Mobile */
+
+@media (max-width: 768px) {
+  .courses-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .add-course-btn {
+    width: 100%;
+  }
+}
+/* =========================
+   COURSE MODAL
+========================= */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+
+  background: rgba(0, 0, 0, 0.65);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 1000;
+}
+
+.course-modal {
+  width: clamp(340px, 90vw, 500px);
+
+  padding: 28px;
+
+  background: linear-gradient(
+    135deg,
+    #1c2b5a,
+    #0f1a3d
+  );
+
+  border-radius: 20px;
+
+  box-shadow:
+    rgba(0, 0, 0, 0.6) 0 12px 30px;
+
+  color: white;
+}
+
+.course-modal h2 {
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.modal-input-group {
+  margin-bottom: 18px;
+}
+
+.modal-input-group label {
+  display: block;
+  margin-bottom: 8px;
+
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.modal-input-group input {
+  width: 100%;
+
+  padding: 12px;
+
+  border-radius: 12px;
+
+  border: 1px solid
+    rgba(255, 255, 255, 0.15);
+
+  background:
+    rgba(255, 255, 255, 0.08);
+
+  color: white;
+
+  outline: none;
+}
+
+.modal-input-group input:focus {
+  border-color: #7fb8ff;
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 12px;
+
+  margin-top: 24px;
+}
+
+.cancel-btn,
+.submit-btn {
+  flex: 1;
+
+  padding: 12px;
+
+  border: none;
+
+  border-radius: 12px;
+
+  cursor: pointer;
+
+  font-weight: 600;
+
+  transition: 0.2s ease;
+}
+
+.cancel-btn {
+  background:
+    rgba(255, 255, 255, 0.1);
+
+  color: white;
+}
+
+.submit-btn {
+  background: white;
+  color: #0f1a3d;
+}
+
+.cancel-btn:hover,
+.submit-btn:hover {
+  transform: translateY(-2px);
+}

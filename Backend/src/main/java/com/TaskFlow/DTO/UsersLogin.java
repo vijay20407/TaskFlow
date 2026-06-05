@@ -1,4 +1,4 @@
-package com.TaskFlow.Entity;
+package com.TaskFlow.DTO;
 
 public class UsersLogin {
     private String email;

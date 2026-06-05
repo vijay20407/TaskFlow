@@ -1,7 +1,7 @@
 package com.TaskFlow.Controller;
 
 
-import com.TaskFlow.Entity.Otp;
+import com.TaskFlow.DTO.Otp;
 import com.TaskFlow.Entity.Users;
 import com.TaskFlow.Services.OtpService;
 import com.TaskFlow.Services.SigninService;

@@ -21,7 +21,7 @@ export default function Login(){
             console.log(response.data)
         if(error==""){
             navigate("/home",{state:{
-                email : response.data
+                username : response.data
             }})
         }
             

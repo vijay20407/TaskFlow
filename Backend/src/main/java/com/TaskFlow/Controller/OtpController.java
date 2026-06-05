@@ -1,13 +1,11 @@
 package com.TaskFlow.Controller;
 
-import com.TaskFlow.Entity.Otp;
+import com.TaskFlow.DTO.Otp;
 import com.TaskFlow.Services.OtpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.annotation.SessionScope;
-
-import java.util.Random;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:5173")
