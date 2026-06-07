@@ -16,17 +16,30 @@ export default function Home(){
         const classesAttended = formData.get("classes-attended")
         const classesCommenced = formData.get("classes-commenced")
         const courseDetails = classesAttended+"|"+classesCommenced
-        const response = await axios.post("http://localhost:8080/api/home/add-course",{username,courseName,courseDetails})
+        const response = await axios.post("http://localhost:8080/api/home/add-course",
+          {username,
+            courseName,
+            courseDetails
+          })
         console.log(response)
         console.log(username)
         setListOfCourses(prev=>[...prev,courseName])
         setShowCourseModal(false)
   }
   const sync = async()=>{
-    const response = await axios.get("http://localhost:8080/api/home/get-course-list")
-    setListOfCourses(response);
+    const response = await axios.get("http://localhost:8080/api/home/get-courses",
+    {
+      params:{
+        username:username
+      }
+    }
+    )
+    console.log(response);
+    setListOfCourses(response.data);
   }
+  
     return (
+      
     <div className="home-container">
       {/* Navbar */}
       <nav className="navbar">
@@ -49,11 +62,15 @@ export default function Home(){
               <h2>Your Courses</h2>
               <p>Current Semester</p>
             </div>
-
+          <button className="add-course-btn"
+          onClick={sync}>
+              Sync
+            </button>
           <button className="add-course-btn"
           onClick={() => setShowCourseModal(true)}>
               + Add Course
             </button>
+            
           </div>
 
           <div className="courseSection">
