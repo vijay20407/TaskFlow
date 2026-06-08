@@ -37,6 +37,18 @@ export default function Home(){
     console.log(response);
     setListOfCourses(response.data);
   }
+  const deleteCourse = async(courseName)=>{
+    const response = await axios.delete("http://localhost:8080/api/home/delete-course",
+      {
+        data:{
+          courseName,
+          username
+        }
+        
+      }
+  )
+    sync()
+  }
   
     return (
       
@@ -78,6 +90,7 @@ export default function Home(){
               <Course
                 key={id}
                 name={course}
+                onDelete={deleteCourse}
               />
             ))}
   {showCourseModal && (

@@ -22,12 +22,20 @@ public class Users implements UserDetails {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id")
     private Long id;
+
+
     @Column(name = "username")
     private String username;
+
+
     @Column(name = "password")
     private String password;
+
+
     @Column(name = "email")
     private String email;
+
+
     @JdbcTypeCode(SqlTypes.JSON)
     @Column(columnDefinition = "jsonb")
     private Map<String,String> courseMap = new HashMap<>();
@@ -37,23 +45,18 @@ public class Users implements UserDetails {
     public Map<String,String> getCourseMap() {
         return courseMap;
     }
-    public void addCourse(String courseName,String courseDetails){
-        if(courseMap == null){
-            courseMap = new HashMap<>();
-        }
-        courseMap.put(courseName,courseDetails);
-    }
+
+
     @JdbcTypeCode(SqlTypes.JSON)
     @Column(columnDefinition = "jsonb")
     private Map<String,List<String>> timetable;
-
     public Map<String, List<String>> getTimetable() {
         return timetable;
     }
-
     public void setTimetable(Map<String, List<String>> timetable) {
         this.timetable = timetable;
     }
+
 
     public Long getId() {
         return id;
@@ -106,5 +109,4 @@ public class Users implements UserDetails {
     public void setEmail(String email) {
         this.email = email;
     }
-
 }

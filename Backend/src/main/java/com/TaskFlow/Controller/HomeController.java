@@ -25,4 +25,9 @@ public class HomeController {
         List<String> courses = homeService.getCourses(username);
         return ResponseEntity.ok().body(courses);
     }
+    @DeleteMapping("/delete-course")
+    public ResponseEntity<String> deleteCourse(@RequestBody Course course){
+        homeService.deleteCourse(course.getUsername(), course.getCourseName());
+        return ResponseEntity.ok().build();
+    }
 }

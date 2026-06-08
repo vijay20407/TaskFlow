@@ -1,7 +1,7 @@
-.courseCard {
-  min-width: 180px;
+.course-card {
+  position: relative;
 
-  padding: 14px 18px;
+  padding: 10px 20px;/* extra right padding */
 
   background: linear-gradient(
     135deg,
@@ -9,23 +9,48 @@
     #0f1a3d
   );
 
-  border-radius: 14px;
-
-  color: white;
-
-  box-shadow:
-    rgba(0, 0, 0, 0.35) 0 6px 18px;
-
-  transition: 0.2s ease;
-
-  cursor: pointer;
+  border-radius: 16px;
+}
+.course-card h3{
+   color: white;
+  margin: 0;
+  font-size: 18px;
 }
 
-.courseCard:hover {
+.course-card:hover {
   transform: translateY(-3px);
 }
 
-.courseCard span {
-  font-size: 15px;
-  font-weight: 600;
+.delete-course-btn {
+  position: absolute;
+
+  top: -8px;
+  right: -8px;
+
+  width: 28px;
+  height: 28px;
+
+  border: none;
+  border-radius: 50%;
+
+  background: rgba(255, 80, 80, 0.9);
+  color: white;
+
+  cursor: pointer;
+
+  opacity: 0;
+  transform: scale(0.8);
+
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+
+.course-card:hover .delete-course-btn {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.delete-course-btn:hover {
+  background: rgb(255, 50, 50);
 }
