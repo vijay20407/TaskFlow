@@ -1,14 +1,18 @@
 import { useLocation, useParams } from "react-router-dom"
 import "../CSS/home.css"
 import Course from "../Components/Course";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import axios from "axios";
+import CourseDetails from "../Components/CourseDetails";
 export default function Home(){
     const location = useLocation();
     const username = location.state?.username
     const [listOfCourses,setListOfCourses] = useState([]);
     const [showCourseModal, setShowCourseModal] = useState(false);
-
+    const [courseMap,setCourseMap] = useState({})
+    useEffect(() => {
+        sync();
+    }, []);
   const addCourse= async(e)=>{
         e.preventDefault();
         const formData = new FormData(e.currentTarget)
@@ -21,8 +25,6 @@ export default function Home(){
             courseName,
             courseDetails
           })
-        console.log(response)
-        console.log(username)
         setListOfCourses(prev=>[...prev,courseName])
         setShowCourseModal(false)
   }
@@ -34,8 +36,14 @@ export default function Home(){
       }
     }
     )
-    console.log(response);
+    const response2 = await axios.get("http://localhost:8080/api/home/get-courseMap",
+    {
+      params:{
+        username:username
+      }
+    })
     setListOfCourses(response.data);
+    setCourseMap(response2.data);
   }
   const deleteCourse = async(courseName)=>{
     const response = await axios.delete("http://localhost:8080/api/home/delete-course",
@@ -161,7 +169,36 @@ export default function Home(){
           </div>
         )}
           </div>
+          
       </section>
+<section className="attendance-panel">
+  <div className="attendance-header-section">
+    <div>
+      <h2>Attendance Overview</h2>
+      <p>Current Semester</p>
+    </div>
+  </div>
+
+  <div className="attendance-table-header">
+    <p>Course</p>
+    <p>Present</p>
+    <p>Absent</p>
+    <p>Total</p>
+    <p>%</p>
+    <p>Free Leaves</p>
+  </div>
+
+  <div className="attendance-list">
+    {listOfCourses.map((course, id) => (
+      <CourseDetails
+        key={id}
+        course={course}
+        courseDetails={courseMap?.[course]}
+      />
+    ))}
+  </div>
+</section>
+
     </div>
   );
 }

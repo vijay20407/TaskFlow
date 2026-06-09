@@ -4,6 +4,8 @@ import com.TaskFlow.DTO.Course;
 import com.TaskFlow.Entity.Users;
 import com.TaskFlow.Repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,17 +17,19 @@ public class HomeService {
     @Autowired
     UserRepository userRepository;
 
-    public void addCourse(Course course){
+    public ResponseEntity<String> addCourse(Course course){
         Optional<Users> user = userRepository.findByUsername(course.getUsername());
         if(user.isPresent()){
             Map<String,String> updatedCourseMap = user.get().getCourseMap();
-            updatedCourseMap.put(course.getCourseName(), course.getCourseDetails());
+            if(!updatedCourseMap.containsKey(course.getCourseName()))updatedCourseMap.put(course.getCourseName(), course.getCourseDetails());
+            else return ResponseEntity.status(HttpStatus.CONFLICT).body("Course already exists");
+
             user.get().setCourseMap(updatedCourseMap);
             userRepository.save(user.get());
         }
-        else{
-            System.out.println("not found");
-        }
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+
     }
 
     public List<String> getCourses(String username) {
@@ -42,5 +46,9 @@ public class HomeService {
             user.get().setCourseMap(updatedCourseMap);
             userRepository.save(user.get());
         }
+    }
+    public Map<String,String> getCourseMap(String username){
+        Optional<Users> user = userRepository.findByUsername(username);
+        return user.map(Users::getCourseMap).orElse(null);
     }
 }

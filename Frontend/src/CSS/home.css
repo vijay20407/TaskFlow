@@ -416,3 +416,73 @@ body {
 .submit-btn:hover {
   transform: translateY(-2px);
 }
+/* =========================
+   ATTENDANCE SECTION
+========================= */
+
+.attendance-panel {
+  margin-top: 30px;
+
+  background: linear-gradient(
+    135deg,
+    rgba(28, 43, 90, 0.45),
+    rgba(15, 26, 61, 0.45)
+  );
+
+  border-radius: 20px;
+
+  padding: 24px;
+
+  box-shadow:
+    rgba(0, 0, 0, 0.3) 0 8px 24px;
+}
+
+.attendance-header-section {
+  margin-bottom: 24px;
+}
+
+.attendance-header-section h2 {
+  color: white;
+  margin-bottom: 4px;
+}
+
+.attendance-header-section p {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 14px;
+}
+
+/* Table Headings */
+
+.attendance-table-header {
+  display: flex;
+  align-items: center;
+
+  padding: 0 20px 14px;
+
+  color: rgba(255, 255, 255, 0.7);
+
+  font-weight: 600;
+  font-size: 14px;
+
+  border-bottom: 1px solid
+    rgba(255, 255, 255, 0.08);
+
+  margin-bottom: 12px;
+}
+
+.attendance-table-header p {
+  flex: 1;
+  margin: 0;
+  text-align: center;
+}
+
+.attendance-table-header p:first-child {
+  flex: 3;
+  text-align: left;
+}
+
+.attendance-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
