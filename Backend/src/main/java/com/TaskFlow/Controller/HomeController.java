@@ -1,6 +1,7 @@
 package com.TaskFlow.Controller;
 
 import com.TaskFlow.DTO.Course;
+import com.TaskFlow.DTO.EditCourseMap;
 import com.TaskFlow.Services.HomeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,5 +36,9 @@ public class HomeController {
     @GetMapping("/get-courseMap")
     public ResponseEntity<Map<String, String>> getCourseMap(@RequestParam String username){
         return ResponseEntity.status(HttpStatus.OK).body(homeService.getCourseMap(username));
+    }
+    @PatchMapping("/edit-courseMap")
+    public ResponseEntity<String> editCourseMap(@RequestBody EditCourseMap editCourseMap){
+        return homeService.editCourseMap(editCourseMap);
     }
 }

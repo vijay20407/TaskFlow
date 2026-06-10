@@ -1,4 +1,4 @@
-import { useLocation, useParams } from "react-router-dom"
+import { useLocation, useNavigate, useParams } from "react-router-dom"
 import "../CSS/home.css"
 import Course from "../Components/Course";
 import { useState,useEffect } from "react";
@@ -7,13 +7,20 @@ import CourseDetails from "../Components/CourseDetails";
 export default function Home(){
     const location = useLocation();
     const username = location.state?.username
+    const from = location.state?.from
+    const nav = useNavigate()
+    
     const [listOfCourses,setListOfCourses] = useState([]);
     const [showCourseModal, setShowCourseModal] = useState(false);
+    const [showAttendanceModal,setShowAttendanceModal]=useState(false);
     const [courseMap,setCourseMap] = useState({})
     useEffect(() => {
-        sync();
+      if(from==undefined)nav("/login")
+      else sync();
+        
     }, []);
   const addCourse= async(e)=>{
+        
         e.preventDefault();
         const formData = new FormData(e.currentTarget)
         const courseName = formData.get("course-name")
@@ -25,8 +32,9 @@ export default function Home(){
             courseName,
             courseDetails
           })
-        setListOfCourses(prev=>[...prev,courseName])
+        sync()
         setShowCourseModal(false)
+        
   }
   const sync = async()=>{
     const response = await axios.get("http://localhost:8080/api/home/get-courses",
@@ -45,6 +53,16 @@ export default function Home(){
     setListOfCourses(response.data);
     setCourseMap(response2.data);
   }
+  const editCourseMap = async(newCourseMap)=>{
+
+    const response = axios.patch("http://localhost:8080/api/home/edit-courseMap",
+      {
+        newCourseMap,
+        username,
+        
+      }
+    )
+  }
   const deleteCourse = async(courseName)=>{
     const response = await axios.delete("http://localhost:8080/api/home/delete-course",
       {
@@ -56,6 +74,23 @@ export default function Home(){
       }
   )
     sync()
+  }
+  const submitAttendance = async(event)=>{
+    event.preventDefault()
+    const formData = new FormData(event.currentTarget)
+    const copy = courseMap
+    listOfCourses.forEach((course)=>{
+      const courseDetailsOriginal = courseMap[course].split("|")
+      const present = Number(courseDetailsOriginal[0])+Number(formData.get(`present-${course}`))
+      const absent = Number(formData.get(`absent-${course}`))
+      const total = Number(courseDetailsOriginal[1])+Number(absent)+Number(formData.get(`present-${course}`))
+      const courseDetails = present+"|"+total
+      copy[course] = courseDetails
+    })
+    editCourseMap(copy)
+    setShowAttendanceModal(false)
+    
+
   }
   
     return (
@@ -82,14 +117,21 @@ export default function Home(){
               <h2>Your Courses</h2>
               <p>Current Semester</p>
             </div>
-          <button className="add-course-btn"
-          onClick={sync}>
+          <div className="course-actions">
+            <button
+              className="add-course-btn"
+              onClick={sync}
+            >
               Sync
             </button>
-          <button className="add-course-btn"
-          onClick={() => setShowCourseModal(true)}>
+
+            <button
+              className="add-course-btn"
+              onClick={() => setShowCourseModal(true)}
+            >
               + Add Course
             </button>
+          </div>
             
           </div>
 
@@ -177,6 +219,11 @@ export default function Home(){
       <h2>Attendance Overview</h2>
       <p>Current Semester</p>
     </div>
+
+    <button className="add-attendance-btn"
+            onClick={()=>setShowAttendanceModal(true)}>
+      + Add Attendance
+    </button>
   </div>
 
   <div className="attendance-table-header">
@@ -193,12 +240,77 @@ export default function Home(){
       <CourseDetails
         key={id}
         course={course}
-        courseDetails={courseMap?.[course]}
+        courseDetails={courseMap[course]}
       />
     ))}
   </div>
 </section>
+{showAttendanceModal && (
+  <div
+    className="modal-overlay"
+    onClick={() => setShowAttendanceModal(false)}
+  >
+    <div
+      className="attendance-modal"
+      onClick={(e) => e.stopPropagation()}
+    >
+      <h2>Add Your Attendance</h2>
 
+      <form onSubmit={submitAttendance}>
+        <div className="attendance-grid-header">
+          <span>Course</span>
+          <span>Present</span>
+          <span>Absent</span>
+        </div>
+
+        {listOfCourses.map((course, index) => (
+          <div
+            key={index}
+            className="attendance-row-input"
+          >
+            <span>{course}</span>
+
+            <input
+              type="number"
+              min="0"
+              defaultValue="0"
+              name={`present-${course}`}
+              className="attendance-input"
+            />
+
+            <input
+              type="number"
+              min="0"
+              defaultValue="0"
+              name={`absent-${course}`}
+              className="attendance-input"
+            />
+          </div>
+        ))}
+
+        <div className="modal-buttons">
+          <button
+            type="button"
+            className="cancel-btn"
+            onClick={() =>
+              setShowAttendanceModal(false)
+            }
+          >
+            Cancel
+          </button>
+
+          <button
+            type="submit"
+            className="submit-btn"
+          >
+            Save Attendance
+          </button>
+        </div>
+      </form>
     </div>
+  </div>
+)}
+    </div>
+
   );
 }

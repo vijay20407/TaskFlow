@@ -1,6 +1,5 @@
 import "../CSS/courseDetails.css"
 export default function CourseDetails(props){
-    console.log(props.courseDetails)
     const courseDetails = props.courseDetails.split('|')
     
     const total = courseDetails[1]
@@ -8,7 +7,8 @@ export default function CourseDetails(props){
     const absent = total-present
     const percentage  = ((present/total)*100).toFixed(2)
 
-    const freeLeaves  = (((4*present)-(3*total))/3).toFixed(0)
+    const temp  = (((4*present)-(3*total))/3).toFixed(0)
+    const freeLeaves = temp>0?temp:"NaN"
     return(
         <div className="course-header-row" >
             <p>{props.course}</p>

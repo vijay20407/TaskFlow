@@ -298,8 +298,14 @@ body {
     gap: 16px;
   }
 
-  .add-course-btn {
+  .course-actions {
     width: 100%;
+    display: flex;
+    gap: 12px;
+  }
+
+  .add-course-btn {
+    flex: 1;
   }
 }
 /* =========================
@@ -438,6 +444,10 @@ body {
 }
 
 .attendance-header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
   margin-bottom: 24px;
 }
 
@@ -485,4 +495,131 @@ body {
   display: flex;
   flex-direction: column;
   gap: 12px;
+}
+.add-attendance-btn {
+  background: white;
+  color: #0f1a3d;
+
+  border: none;
+  border-radius: 12px;
+
+  padding: 12px 18px;
+
+  font-weight: 600;
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.add-attendance-btn:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 8px 20px
+    rgba(255, 255, 255, 0.15);
+}
+@media (max-width: 768px) {
+  .attendance-header-section {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .add-attendance-btn {
+    width: 100%;
+  }
+}
+.course-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+.attendance-modal {
+  width: clamp(550px, 85vw, 900px);
+
+  padding: 28px;
+
+  background: linear-gradient(
+    135deg,
+    #1c2b5a,
+    #0f1a3d
+  );
+
+  border-radius: 20px;
+
+  color: white;
+
+  box-shadow:
+    rgba(0,0,0,0.6) 0 12px 30px;
+}
+
+.attendance-modal h2 {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.attendance-grid-header {
+  display: grid;
+  grid-template-columns:
+    3fr
+    1fr
+    1fr;
+
+  padding-bottom: 12px;
+
+  font-weight: 600;
+
+  border-bottom:
+    1px solid rgba(255,255,255,0.15);
+}
+
+
+.attendance-row-input {
+  display: grid;
+  grid-template-columns:
+    3fr
+    1fr
+    1fr;
+
+  align-items: center;
+
+  gap: 16px;
+
+  padding: 14px 0;
+
+  border-bottom:
+    1px solid rgba(255,255,255,0.08);
+}
+
+.attendance-row-input span {
+  font-weight: 500;
+}
+
+.attendance-input {
+  width: 80px;
+
+  padding: 10px;
+
+  border-radius: 10px;
+
+  border: 1px solid
+    rgba(255,255,255,0.15);
+
+  background:
+    rgba(255,255,255,0.08);
+
+  color: white;
+
+  text-align: center;
+
+  outline: none;
+}
+
+.attendance-input:focus {
+  border-color: #7fb8ff;
+}
+
+.attendance-input::-webkit-inner-spin-button,
+.attendance-input::-webkit-outer-spin-button {
+  opacity: 1;
 }
