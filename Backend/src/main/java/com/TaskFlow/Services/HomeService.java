@@ -7,6 +7,7 @@ import com.TaskFlow.Repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,8 +19,8 @@ public class HomeService {
     @Autowired
     UserRepository userRepository;
 
-    public ResponseEntity<String> addCourse(Course course){
-        Optional<Users> user = userRepository.findByUsername(course.getUsername());
+    public ResponseEntity<String> addCourse(Course course, Authentication authentication){
+        Optional<Users> user = userRepository.findByUsername(authentication.getName());
         if(user.isPresent()){
             Map<String,String> updatedCourseMap = user.get().getCourseMap();
             if(!updatedCourseMap.containsKey(course.getCourseName())){
@@ -55,8 +56,8 @@ public class HomeService {
         Optional<Users> user = userRepository.findByUsername(username);
         return user.map(Users::getCourseMap).orElse(null);
     }
-    public ResponseEntity<String> editCourseMap(EditCourseMap  editCourseMap){
-        Optional<Users> user = userRepository.findByUsername(editCourseMap.getUserName());
+    public ResponseEntity<String> editCourseMap(EditCourseMap  editCourseMap,Authentication authentication){
+        Optional<Users> user = userRepository.findByUsername(authentication.getName());
         if(user.isPresent()){
             user.get().setCourseMap(editCourseMap.getNewCourseMap());
             userRepository.save(user.get());

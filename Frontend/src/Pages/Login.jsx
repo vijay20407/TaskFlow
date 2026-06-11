@@ -18,10 +18,10 @@ export default function Login(){
                     password: password,
                 }
             })
-            console.log(response.data)
+            sessionStorage.setItem('token',response.data)
+            console.log(sessionStorage.getItem('token'))
         if(error==""){
             navigate("/home",{state:{
-                username : response.data,
                 from : "login"
             }})
         }
@@ -60,6 +60,10 @@ export default function Login(){
                     </div>
                     <button type="submit" className="loginLogin-button">Login</button>
                      <p style={{'color':'red',fontSize:12}}>{error}</p>
+                     Don't have an account?
+                     <Link to="/signup" className="forgot-password-link"> 
+                        Register
+                     </Link>
                 </form>
                
                 </div>

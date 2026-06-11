@@ -4,9 +4,9 @@ import Course from "../Components/Course";
 import { useState,useEffect } from "react";
 import axios from "axios";
 import CourseDetails from "../Components/CourseDetails";
+import api from "../api";
 export default function Home(){
     const location = useLocation();
-    const username = location.state?.username
     const from = location.state?.from
     const nav = useNavigate()
     
@@ -27,8 +27,8 @@ export default function Home(){
         const classesAttended = formData.get("classes-attended")
         const classesCommenced = formData.get("classes-commenced")
         const courseDetails = classesAttended+"|"+classesCommenced
-        const response = await axios.post("http://localhost:8080/api/home/add-course",
-          {username,
+        const response = await api.post("http://localhost:8080/api/home/add-course",
+          {
             courseName,
             courseDetails
           })
@@ -37,38 +37,24 @@ export default function Home(){
         
   }
   const sync = async()=>{
-    const response = await axios.get("http://localhost:8080/api/home/get-courses",
-    {
-      params:{
-        username:username
-      }
-    }
-    )
-    const response2 = await axios.get("http://localhost:8080/api/home/get-courseMap",
-    {
-      params:{
-        username:username
-      }
-    })
+    const response = await api.get("http://localhost:8080/api/home/get-courses")
+    const response2 = await api.get("http://localhost:8080/api/home/get-courseMap")
     setListOfCourses(response.data);
     setCourseMap(response2.data);
   }
   const editCourseMap = async(newCourseMap)=>{
 
-    const response = axios.patch("http://localhost:8080/api/home/edit-courseMap",
+    const response = api.patch("http://localhost:8080/api/home/edit-courseMap",
       {
         newCourseMap,
-        username,
-        
       }
     )
   }
   const deleteCourse = async(courseName)=>{
-    const response = await axios.delete("http://localhost:8080/api/home/delete-course",
+    const response = await api.delete("http://localhost:8080/api/home/delete-course",
       {
         data:{
           courseName,
-          username
         }
         
       }
@@ -108,8 +94,7 @@ export default function Home(){
 
       {/* Welcome Section */}
       <section className="hero-section">
-        <h1>Welcome back, {username} </h1>
-        <p>Manage your tasks efficiently and stay productive.</p>
+        <p>Manage your attendence efficiently and stay productive.</p>
       </section>
       <section className="courses-panel">
           <div className="courses-header">

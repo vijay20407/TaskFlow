@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import "../CSS/signup.css"
-
+import { Link } from "react-router-dom";
 
 export default function Signup(props){
     const [error,setError] = useState("")
@@ -68,7 +68,9 @@ export default function Signup(props){
                 <input type="password" id="confirm-password" placeholder="Confirm your password" required></input>
                 </div>
 
-                <button type="submit" className="signupsignup-button">Sign Up</button>
+                <button type="submit" className="signupsignup-button">Sign Up</button><br /><br />
+                Have an Account?
+                <Link to="/login">Login</Link>
             </form>
             </div>
         </div>

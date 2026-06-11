@@ -3,6 +3,7 @@ package com.TaskFlow.Controller;
 import com.TaskFlow.Entity.Users;
 import com.TaskFlow.DTO.UsersLogin;
 import com.TaskFlow.Repo.UserRepository;
+import com.TaskFlow.Security.JwtUtil;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,14 +20,19 @@ import java.util.Optional;
 public class LoginController
 {
     @Autowired
+    private JwtUtil jwtUtil;
+    @Autowired
     private UserRepository userRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
     @PostMapping
     public ResponseEntity<String> checkLogin(Authentication authentication) {
-        System.out.println(authentication.getName());
-        return ResponseEntity.status(HttpStatus.OK).header("message","Login Successful").body(authentication.getName());
+
+        String username = authentication.getName();
+        String token = jwtUtil.generateJwtToken(username);
+
+        return ResponseEntity.status(HttpStatus.OK).header("message","Login Successful").body(token);
     }
     @PatchMapping("/reset-password")
     @Transactional

@@ -19,26 +19,26 @@ public class HomeController {
     @Autowired
     HomeService homeService;
     @PostMapping("/add-course")
-    public ResponseEntity<String> addCourse(@RequestBody Course course){
+    public ResponseEntity<String> addCourse(@RequestBody Course course,Authentication authentication){
 
-        return homeService.addCourse(course);
+        return homeService.addCourse(course,authentication);
     }
     @GetMapping("/get-courses")
-    public ResponseEntity<List<String>> getCourseList(@RequestParam String username){
-        List<String> courses = homeService.getCourses(username);
+    public ResponseEntity<List<String>> getCourseList(Authentication authentication){
+        List<String> courses = homeService.getCourses(authentication.getName());
         return ResponseEntity.ok().body(courses);
     }
     @DeleteMapping("/delete-course")
-    public ResponseEntity<String> deleteCourse(@RequestBody Course course){
-        homeService.deleteCourse(course.getUsername(), course.getCourseName());
+    public ResponseEntity<String> deleteCourse(@RequestBody Course course,Authentication authentication){
+        homeService.deleteCourse(authentication.getName(), course.getCourseName());
         return ResponseEntity.ok().build();
     }
     @GetMapping("/get-courseMap")
-    public ResponseEntity<Map<String, String>> getCourseMap(@RequestParam String username){
-        return ResponseEntity.status(HttpStatus.OK).body(homeService.getCourseMap(username));
+    public ResponseEntity<Map<String, String>> getCourseMap(Authentication authentication){
+        return ResponseEntity.status(HttpStatus.OK).body(homeService.getCourseMap(authentication.getName()));
     }
     @PatchMapping("/edit-courseMap")
-    public ResponseEntity<String> editCourseMap(@RequestBody EditCourseMap editCourseMap){
-        return homeService.editCourseMap(editCourseMap);
+    public ResponseEntity<String> editCourseMap(@RequestBody EditCourseMap editCourseMap,Authentication authentication){
+        return homeService.editCourseMap(editCourseMap,authentication);
     }
 }
